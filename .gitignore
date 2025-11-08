@@ -1,0 +1,17 @@
+# Ignore build outputs
+target/
+
+# Ignore test output reports
+test-output/
+
+# Ignore videos folder
+videos/
+
+# Ignore Playwright or tracing zip files
+trace.zip
+
+# Ignore allure folder
+allure-results/
+
+# Ignore Eclipse settings folder
+.settings/

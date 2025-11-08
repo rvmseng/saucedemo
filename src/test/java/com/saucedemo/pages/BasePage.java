@@ -1,0 +1,50 @@
+package com.saucedemo.pages;
+
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.LoadState;
+
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
+public abstract class BasePage {
+	protected final Page page;
+
+	protected BasePage(Page page) {
+		this.page = page;
+	}
+	
+	protected Locator $(String selector) {
+		return page.locator(selector);
+	}
+
+	public void open(String url) {
+		page.navigate(url);
+		page.waitForLoadState(LoadState.NETWORKIDLE);
+	}
+
+	protected void click(Locator locator) {
+		locator.click(); // auto-wait: visible, enabled, stable
+	}
+
+	protected void fill(Locator locator, String value) {
+		if (value != null && !value.isEmpty()) {
+			locator.fill(value); // auto-wait
+		}
+	}
+
+	protected boolean isVisible(Locator locator) {
+		return locator.isVisible();
+	}
+
+	protected void shouldBeVisible(Locator locator) {
+		assertThat(locator).isVisible();
+	}
+
+	public void shouldHaveTitle(String regex) {
+		assertThat(page).hasTitle(java.util.regex.Pattern.compile(regex));
+	}
+
+	protected void shouldContainText(Locator locator, String text) {
+		assertThat(locator).containsText(text);
+	}
+}

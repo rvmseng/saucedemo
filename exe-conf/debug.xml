@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="saucedemo test suite" parallel="none" thread-count="0">
+
+	<parameter name="cucumber.filter.tags" value="@debug" />
+
+	<listeners>
+		<listener class-name="com.saucedemo.listener.RetryListener" />
+	</listeners>
+
+	<test name="saucedemo debug scenarios">
+		<classes>
+			<class name="com.saucedemo.runner.TestRunner" />
+		</classes>
+	</test>
+</suite>
