@@ -8,6 +8,6 @@ mvn clean verify -Dconfig=uat.properties -Dcucumber.filter.tags="@debug" -Dfails
 mvn test -Dcucumber.options="@target/failed_scenarios.txt
 
 ** XRAY COMMAND Import Features ****
-mvn clean compile test xray:import-features xray:import-results -Dxray.inputFeatures=src/test/resources/features/get_faqs.feature -Dconfig=uat.properties -Dcucumber.filter.tags="@debug" -Dmaven.test.failure.ignore=true 
+mvn clean compile test xray:import-features xray:import-results -Dxray.inputFeatures=src/test/resources/features -Dconfig=uat.properties -Dcucumber.filter.tags="@debug" -Dmaven.test.failure.ignore=true 
 
 mvn clean compile test xray:import-results -Dconfig=uat.properties -Dcucumber.filter.tags="@debug" -Dmaven.test.failure.ignore=true 
