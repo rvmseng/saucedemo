@@ -12,4 +12,3 @@ mvn clean compile test xray:import-features xray:import-results -Dxray.inputFeat
 
 mvn clean compile test xray:import-results -Dconfig=uat.properties -Dcucumber.filter.tags="@debug" -Dmaven.test.failure.ignore=true 
 
-some changes
