@@ -11,3 +11,5 @@ mvn test -Dcucumber.options="@target/failed_scenarios.txt
 mvn clean compile test xray:import-features xray:import-results -Dxray.inputFeatures=src/test/resources/features -Dconfig=uat.properties -Dcucumber.filter.tags="@debug" -Dmaven.test.failure.ignore=true 
 
 mvn clean compile test xray:import-results -Dconfig=uat.properties -Dcucumber.filter.tags="@debug" -Dmaven.test.failure.ignore=true 
+
+some changes
