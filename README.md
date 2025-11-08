@@ -69,17 +69,18 @@ Example Maven dependencies (indicative):
 ├── src
 │   ├── main
 │   │   └── java
-│   │       └── com.example.saucedemo
-│   │           ├── config           # configuration classes, environment loader
-│   │           ├── pages            # Page Object Model classes
-│   │           ├── services         # API / helper services
-│   │           └── utils            # logging, screenshots, test context
+│   │       └── com.saucedemo
+│   │           
 │   └── test
 │       ├── java
-│       │   └── com.example.saucedemo
+│       │   └── com.saucedemo
 │       │       ├── runners         # TestNG / Cucumber runner classes
 │       │       ├── steps           # Step definitions
 │       │       └── listeners       # TestNG / Allure listeners
+		|		├── config           # configuration classes, environment loader
+│   	│		├── pages            # Page Object Model classes
+│   	│       ├── services         # API / helper services
+│   	│       └── utils            # logging, screenshots, test context
 │       └── resources
 │           └── features           # .feature files
 │               ├── login.feature

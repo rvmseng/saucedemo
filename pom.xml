@@ -17,7 +17,6 @@
 	</properties>
 
 	<dependencies>
-
 		<!-- Playwright Java -->
 		<dependency>
 			<groupId>com.microsoft.playwright</groupId>
@@ -233,5 +232,4 @@
 			<url>https://jitpack.io</url>
 		</pluginRepository>
 	</pluginRepositories>
-
 </project>
