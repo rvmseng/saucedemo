@@ -23,7 +23,7 @@ Feature: Login functionality
       | standard_user   | wrong_pass   | Username and password do not match   |
       | locked_out_user | secret_sauce | Sorry, this user has been locked out |
 
-  @invalid @required_fields @debug
+  @invalid @required_fields
   Scenario: check required fields
     When the user fills the form with:
       | username | password     |

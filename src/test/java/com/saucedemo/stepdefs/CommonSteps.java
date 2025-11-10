@@ -20,7 +20,7 @@ public class CommonSteps {
 		Utility.addStandardUserCookie();
 	}
 	
-	@When("open inventory page")
+	@When("the user is on the Inventory page")
 	public void open_inventory_page() {
 		new InventoryPage(PlaywrightFactory.getPage()).navigate();
 	}

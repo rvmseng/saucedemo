@@ -1,18 +1,24 @@
 package com.saucedemo.pages;
 
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.LoadState;
 
-import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-
 public abstract class BasePage {
+	protected final Logger logger;
+
 	protected final Page page;
 
 	protected BasePage(Page page) {
+		logger = LoggerFactory.getLogger(this.getClass());
 		this.page = page;
 	}
-	
+
 	protected Locator $(String selector) {
 		return page.locator(selector);
 	}

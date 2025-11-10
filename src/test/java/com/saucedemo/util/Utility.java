@@ -4,6 +4,7 @@ import static com.saucedemo.config.ConfigProvider.config;
 import static com.saucedemo.util.AllureUtils.attachScreenshot;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,7 +21,7 @@ import com.saucedemo.pages.LoginPage;
 import io.cucumber.java.Scenario;
 
 public class Utility {
-	private static final Logger log = LoggerFactory.getLogger(Utility.class);
+	private static final Logger logger = LoggerFactory.getLogger(Utility.class);
 
 	private static final Path SCREENSHOT_FOLDER = Paths.get("target", "screenshots");
 
@@ -43,7 +44,7 @@ public class Utility {
 			Path target = SCREENSHOT_FOLDER.resolve(filename);
 			Files.write(target, bytes);
 		} catch (IOException e) {
-			log.error("Failed to save screenshot to file: " + e.getMessage());
+			logger.error("Failed to save screenshot to file: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -52,7 +53,7 @@ public class Utility {
 		try {
 			Page page = PlaywrightFactory.getPage();
 			if (page == null) {
-				log.warn("Playwright page is null — cannot capture screenshot");
+				logger.warn("Playwright page is null — cannot capture screenshot");
 				return;
 			}
 
@@ -69,11 +70,11 @@ public class Utility {
 				// add to allure report
 				attachScreenshot(bytes, "Screenshot - " + testName);
 
-				log.warn("❌ Test [{}] FAILED! Attaching logs and API response to Allure...", testName);
+				logger.warn("❌ Test [{}] FAILED! Attaching logs and API response to Allure...", testName);
 			}
 
 		} catch (Exception e) {
-			log.error("Failed to capture screenshot in listener: " + e.getMessage());
+			logger.error("Failed to capture screenshot in listener: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -99,9 +100,20 @@ public class Utility {
 
 		} catch (Exception e) {
 			String errorMessage = "❌ Initialization failed: " + e.getMessage();
-			log.error(errorMessage, e);
+			logger.error(errorMessage, e);
 			throw new RuntimeException(errorMessage, e);
 		}
 	}
-
+	
+	public static String extractPrice(String priceText) {
+	    // Remove currency symbols and extra spaces, keep only the numeric value
+	    return priceText.replaceAll("[^\\d.,]", "").trim();
+	}
+	
+	public static BigDecimal parsePriceToBigDecimal(String priceRaw) {
+	    // مثال: "$9.99" -> 9.99
+	    String cleaned = priceRaw.replaceAll("[^0-9.,-]", ""); // حذف نماد ارز
+	    cleaned = cleaned.replace(",", "."); // اگر کاما جداکننده اعشار است
+	    return new BigDecimal(cleaned);
+	}
 }
