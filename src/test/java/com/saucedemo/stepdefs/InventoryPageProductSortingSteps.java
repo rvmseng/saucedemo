@@ -1,5 +1,7 @@
 package com.saucedemo.stepdefs;
 
+import static org.testng.Assert.assertEquals;
+
 import java.util.List;
 
 import com.saucedemo.assertion.CustomeAssert;
@@ -20,30 +22,44 @@ public class InventoryPageProductSortingSteps extends BaseSteps {
 	}
 
 	@When("the user selects the sort option {string}")
-	public void whenUserSelectsSortOption(String label) {
-		logger.info("the user selects the sort option {}", label);
-		inventoryPage.selectSortOptionByText(label);
+	public void whenUserSelectsSortOption(String option) {
+		logger.info("the user selects the sort option {}", option);
+		inventoryPage.selectSortOptionByText(option);
 	}
-	
+
+	@When("the user reloads the Inventory page")
+	public void whenUserReloadsInventoryPage() {
+		inventoryPage.reload();
+	}
+
+	@Then("the sort option should reset to the default value {string}")
+	public void thenSortOptionResetToDefault(String expectedValue) {
+		String actualValue = inventoryPage.getSortOptionDefaultValue();
+		assertEquals(
+				actualValue.toLowerCase().trim(),
+				expectedValue.toLowerCase().trim(),
+				String.format("❌ Expected sort option to reset to '%s'", expectedValue));
+	}
+
 	@Then("the product list should be ordered by {string}")
 	public void thenProductsShouldBeOrderedBy(String orderType) {
-	    List<Product> products = inventoryPage.getAllProducts(); 
-	    
-	    switch(orderType) {
-	        case "name-ascending":
-	            CustomeAssert.assertListSortedByName(products, true);
-	            break;
-	        case "name-descending":
-	        	CustomeAssert.assertListSortedByName(products, false);
-	            break;
-	        case "price-ascending":
-	        	CustomeAssert.assertListSortedByPrice(products, true);
-	            break;
-	        case "price-descending":
-	        	CustomeAssert.assertListSortedByPrice(products, false);
-	            break;
-	        default:
-	            throw new IllegalArgumentException("Unknown orderType: " + orderType);
-	    }
+		List<Product> products = inventoryPage.getAllProducts();
+
+		switch (orderType) {
+		case "name-ascending":
+			CustomeAssert.assertListSortedByName(products, true);
+			break;
+		case "name-descending":
+			CustomeAssert.assertListSortedByName(products, false);
+			break;
+		case "price-ascending":
+			CustomeAssert.assertListSortedByPrice(products, true);
+			break;
+		case "price-descending":
+			CustomeAssert.assertListSortedByPrice(products, false);
+			break;
+		default:
+			throw new IllegalArgumentException("Unknown orderType: " + orderType);
+		}
 	}
 }

@@ -29,6 +29,10 @@ public class InventoryPage extends BasePage {
 	public void navigate() {
 		open(Endpoints.inventory.getUrl());
 	}
+	
+	public void reload() {
+		page.reload();
+	}
 
 	public void shouldBeLoaded() {
 		shouldBeVisible(inventoryList);
@@ -53,7 +57,10 @@ public class InventoryPage extends BasePage {
 
 	public void selectSortOptionByText(String text) {
 		productSortSelect.selectOption(new SelectOption().setLabel(text));
-		// page.waitForTimeout(200);
+	}
+	
+	public String getSortOptionDefaultValue(){
+		return productSortSelect.evaluate("el => el.options[el.selectedIndex].text").toString();
 	}
 
 	public List<Product> getAllProducts() {
