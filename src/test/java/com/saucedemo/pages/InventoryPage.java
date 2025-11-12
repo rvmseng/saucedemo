@@ -16,6 +16,7 @@ public class InventoryPage extends BasePage {
 	private final Locator burgerMenu;
 	private final Locator items; // cards
 	private final Locator productSortSelect;
+	private final Locator shoppingCartBadge;
 
 	public InventoryPage(Page page) {
 		super(page);
@@ -24,6 +25,7 @@ public class InventoryPage extends BasePage {
 		this.burgerMenu = page.locator("#react-burger-menu-btn");
 		this.items = page.locator(".inventory_item");
 		this.productSortSelect = page.locator(".product_sort_container");
+		this.shoppingCartBadge = page.locator(".shopping_cart_badge");
 	}
 
 	public void navigate() {
@@ -32,6 +34,10 @@ public class InventoryPage extends BasePage {
 	
 	public void reload() {
 		page.reload();
+	}
+	
+	public boolean shoppingCartIsEmpty() {
+		return !isPresent(shoppingCartBadge);
 	}
 
 	public void shouldBeLoaded() {

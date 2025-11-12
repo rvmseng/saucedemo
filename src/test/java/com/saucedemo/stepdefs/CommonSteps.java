@@ -6,12 +6,13 @@ import com.saucedemo.pages.LoginPage;
 import com.saucedemo.util.Utility;
 
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
 
 public class CommonSteps {
 
+	InventoryPage InventoryPage;
+	
 	public CommonSteps() {
-		// TODO Auto-generated constructor stub
+		InventoryPage=new InventoryPage(PlaywrightFactory.getPage());
 	}
 
 	@Given("the user is authenticated")
@@ -19,10 +20,21 @@ public class CommonSteps {
 		new LoginPage(PlaywrightFactory.getPage()).navigate();
 		Utility.addStandardUserCookie();
 	}
-	
-	@When("the user is on the Inventory page")
+
+	@Given("the user is on the Inventory page")
 	public void open_inventory_page() {
-		new InventoryPage(PlaywrightFactory.getPage()).navigate();
+		InventoryPage.navigate();
+	}
+
+	@Given("Given the user is logged in and on the Inventory page")
+	public void user_logged_in_and_on_Inventory_page() {
+		user_is_authenticated();
+		open_inventory_page();
+	}
+
+	@Given("the cart is empty")
+	public void cart_is_empty() {
+		InventoryPage.shoppingCartIsEmpty();
 	}
 
 }

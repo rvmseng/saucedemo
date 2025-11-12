@@ -1,5 +1,5 @@
 #Author: rvm.seng@gmail.com
-#This sample is used for tutorial purposes.
+#This feature file covers automated BDD scenarios for verifying the product sorting functionality on the Inventory page.
 
 @regression @inventory @sorting
 Feature: Product sorting on Inventory page

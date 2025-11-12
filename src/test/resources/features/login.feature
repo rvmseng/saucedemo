@@ -1,5 +1,6 @@
 #Author: rvm.seng@gmail.com
-#This sample is used for tutorial purposes.
+#This feature file covers automated BDD scenarios for verifying the user login functionality, including both successful and failure cases.
+
 Feature: Login functionality
   In order to access protected features
   As a registered user

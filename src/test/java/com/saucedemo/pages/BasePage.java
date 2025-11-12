@@ -29,7 +29,11 @@ public abstract class BasePage {
 	}
 
 	protected void click(Locator locator) {
-		locator.click(); // auto-wait: visible, enabled, stable
+		locator.click(); 
+	}
+
+	protected boolean isPresent(Locator locator) {
+		return locator.count() > 0;
 	}
 
 	protected void fill(Locator locator, String value) {
