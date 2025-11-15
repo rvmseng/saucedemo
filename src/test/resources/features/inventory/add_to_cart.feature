@@ -1,17 +1,16 @@
 #Author: rvm.seng@gmail.com
 #This feature file covers automated BDD scenarios for verifying the "Add to Cart" functionality on the Inventory page.
-
 @regression @inventory @cart
 Feature: Add to Cart functionality on Inventory page
   As a store user
   I want to add and remove products to/from the cart
   So that the cart badge and Cart page reflect correct items and counts
 
-  Background:
+  Background: 
     Given the user is logged in and on the Inventory page
-    And the cart is empty
+    And the shopping basket be empty
 
-  @positive @smoke
+  @positive @smoke @debug
   Scenario: Add a single product to the cart
     Given the inventory contains a product with name "Sauce Labs Backpack"
     When the user clicks "Add to cart" for the product "Sauce Labs Backpack"

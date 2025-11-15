@@ -1,5 +1,7 @@
 package com.saucedemo.stepdefs;
 
+import org.testng.SkipException;
+
 import com.saucedemo.factory.PlaywrightFactory;
 import com.saucedemo.pages.InventoryPage;
 import com.saucedemo.pages.LoginPage;
@@ -26,15 +28,17 @@ public class CommonSteps {
 		InventoryPage.navigate();
 	}
 
-	@Given("Given the user is logged in and on the Inventory page")
+	@Given("the user is logged in and on the Inventory page")
 	public void user_logged_in_and_on_Inventory_page() {
 		user_is_authenticated();
 		open_inventory_page();
 	}
 
-	@Given("the cart is empty")
-	public void cart_is_empty() {
-		InventoryPage.shoppingCartIsEmpty();
+	@Given("the shopping basket be empty")
+	public void shopping_basket_be_empty() {
+		if(!InventoryPage.shoppingBasketIsEmpty()) {
+			throw new SkipException("Expected shopping basket be empty but it has item.");
+		}
 	}
 
 }

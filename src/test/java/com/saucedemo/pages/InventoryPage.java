@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.SelectOption;
 import com.saucedemo.data.Endpoints;
 import com.saucedemo.dto.Product;
@@ -17,6 +18,7 @@ public class InventoryPage extends BasePage {
 	private final Locator items; // cards
 	private final Locator productSortSelect;
 	private final Locator shoppingCartBadge;
+	private final Locator addToCartButtons;
 
 	public InventoryPage(Page page) {
 		super(page);
@@ -26,17 +28,35 @@ public class InventoryPage extends BasePage {
 		this.items = page.locator(".inventory_item");
 		this.productSortSelect = page.locator(".product_sort_container");
 		this.shoppingCartBadge = page.locator(".shopping_cart_badge");
+		this.addToCartButtons = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Add to cart"));
 	}
 
-	public void navigate() {
+	public InventoryPage navigate() {
 		open(Endpoints.inventory.getUrl());
+		return this;
 	}
-	
-	public void reload() {
+
+	public InventoryPage clickOnAddtoCartButton(int index) {
+		addToCartButtons.nth(index).click();
+		return this;
+	}
+
+	public InventoryPage clickOnFirstAddtoCartButton() {
+		addToCartButtons.first().click();
+		return this;
+	}
+
+	public InventoryPage clickOnLastAddtoCartButton() {
+		addToCartButtons.last().click();
+		return this;
+	}
+
+	public InventoryPage reload() {
 		page.reload();
+		return this;
 	}
-	
-	public boolean shoppingCartIsEmpty() {
+
+	public boolean shoppingBasketIsEmpty() {
 		return !isPresent(shoppingCartBadge);
 	}
 
@@ -53,19 +73,22 @@ public class InventoryPage extends BasePage {
 		return items.locator(".inventory_item_name").allTextContents();
 	}
 
-	public void openFirstItem() {
+	public InventoryPage openFirstItem() {
 		items.first().locator(".inventory_item_name").click();
+		return this;
 	}
 
-	public void openMenu() {
+	public InventoryPage openMenu() {
 		click(burgerMenu);
+		return this;
 	}
 
-	public void selectSortOptionByText(String text) {
+	public InventoryPage selectSortOptionByText(String text) {
 		productSortSelect.selectOption(new SelectOption().setLabel(text));
+		return this;
 	}
-	
-	public String getSortOptionDefaultValue(){
+
+	public String getSortOptionDefaultValue() {
 		return productSortSelect.evaluate("el => el.options[el.selectedIndex].text").toString();
 	}
 
